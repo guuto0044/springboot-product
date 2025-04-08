@@ -3,10 +3,13 @@ package io.github.guuto0044.productapi.controller;
 import io.github.guuto0044.productapi.model.Product;
 import io.github.guuto0044.productapi.repository.ProductRepository;
 
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -31,6 +34,8 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public Product findById(@PathVariable String id){
+//        Optional<Product>findbyId = productRepository.findById(id);
+//        return findbyId.orElseGet(null);
         return productRepository.findById(id).orElseGet(null);
     }
 
@@ -39,6 +44,12 @@ public class ProductController {
         product.setId(id);
         productRepository.save(product);
     }
+
+    @GetMapping("/description")
+    public List<Product>findByDescription(@RequestParam String description){
+        return productRepository.findByDescription(description);
+    }
+
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable String id){

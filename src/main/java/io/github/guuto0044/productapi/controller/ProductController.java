@@ -16,8 +16,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-
-    @Autowired
+    
     private final ProductRepository productRepository;
 
     public ProductController(ProductRepository productRepository) {
@@ -33,10 +32,9 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product findById(@PathVariable String id){
-//        Optional<Product>findbyId = productRepository.findById(id);
-//        return findbyId.orElseGet(null);
-        return productRepository.findById(id).orElseGet(null);
+    public Optional<Product>findById(@PathVariable String id){
+//        return productRepository.findById(id).orElseGet(null);
+        return productRepository.findById(id);
     }
 
     @PutMapping("/{id}")
